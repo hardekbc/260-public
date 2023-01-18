@@ -1,0 +1,23 @@
+function main() -> int {
+entry:
+  call:int = $call input()
+  call1:int = $call input()
+  tobool:int = $cmp neq call1:int 0
+  $branch tobool:int if.then if.else
+
+if.else:
+  call3:int = $call input()
+  sub:int = $arith sub call:int call3:int
+  $jump if.end
+
+if.end:
+  a.0:int = $phi(add:int, sub:int)
+  _dummy8:int = $call output(a.0:int)
+  $ret 0
+
+if.then:
+  call2:int = $call input()
+  add:int = $arith add call:int call2:int
+  $jump if.end
+}
+

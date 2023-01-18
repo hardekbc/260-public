@@ -1,0 +1,17 @@
+struct bar {
+  x: int**
+  y: int
+  z: int*
+}
+
+function main() -> int {
+entry:
+  call:bar* = $alloc
+  call1:bar* = $alloc
+  x:int*** = $gep call:bar* 0 x
+  z:int** = $gep call1:bar* 0 z
+  y:int* = $gep call:bar* 0 y
+  $store x:int*** z:int**
+  $ret 0
+}
+

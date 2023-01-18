@@ -1,0 +1,34 @@
+function main() -> int {
+entry:
+  retval:int = $copy 0
+  call:int = $call input()
+  a:int = $copy call:int
+  call1:int = $call input()
+  tobool:int = $cmp neq call1:int 0
+  $branch tobool:int if.then if.else
+
+if.else:
+  call3:int = $call input()
+  c:int = $copy call3:int
+  i2:int = $copy c:int
+  i3:int = $copy a:int
+  sub:int = $arith sub i3:int i2:int
+  a:int = $copy sub:int
+  $jump if.end
+
+if.end:
+  i4:int = $copy a:int
+  _dummy16:int = $call output(i4:int)
+  i5:int = $copy retval:int
+  $ret i5:int
+
+if.then:
+  call2:int = $call input()
+  b:int = $copy call2:int
+  i:int = $copy b:int
+  i1:int = $copy a:int
+  add:int = $arith add i1:int i:int
+  a:int = $copy add:int
+  $jump if.end
+}
+

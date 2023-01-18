@@ -1,0 +1,24 @@
+function main() -> int {
+entry:
+  retval:int = $copy 0
+  x:int = $copy 0
+  call:int = $call input()
+  tobool:int = $cmp neq call:int 0
+  $branch tobool:int land.lhs.true if.end
+
+if.end:
+  i:int = $copy x:int
+  _dummy7:int = $call output(i:int)
+  i1:int = $copy retval:int
+  $ret i1:int
+
+if.then:
+  x:int = $copy 1
+  $jump if.end
+
+land.lhs.true:
+  call1:int = $call input()
+  tobool2:int = $cmp neq call1:int 0
+  $branch tobool2:int if.then if.end
+}
+

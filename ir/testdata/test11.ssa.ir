@@ -1,0 +1,26 @@
+function main() -> int {
+entry:
+  $jump while.cond
+
+land.end:
+  i:int = $phi(0, cmp1:int)
+  $branch i:int while.body while.end
+
+land.rhs:
+  cmp1:int = $cmp lt x.0:int 10
+  $jump land.end
+
+while.body:
+  inc:int = $arith add x.0:int 1
+  $jump while.cond
+
+while.cond:
+  x.0:int = $phi(0, inc:int)
+  cmp:int = $cmp gt x.0:int 0
+  $branch cmp:int land.rhs land.end
+
+while.end:
+  _dummy5:int = $call output(x.0:int)
+  $ret 0
+}
+

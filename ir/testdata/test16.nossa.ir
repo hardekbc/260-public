@@ -1,0 +1,20 @@
+struct foo {
+  one: int
+  two: int
+}
+
+function main() -> int {
+entry:
+  call:foo* = $call input()
+  x:foo* = $copy call:foo*
+  i:foo* = $copy x:foo*
+  one:int* = $gep i:foo* 0 one
+  i1:int = $load one:int*
+  i2:foo* = $copy x:foo*
+  two:int* = $gep i2:foo* 0 two
+  i3:int = $load two:int*
+  add:int = $arith add i1:int i3:int
+  _dummy9:int = $call output(add:int)
+  $ret 0
+}
+

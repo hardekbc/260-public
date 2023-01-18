@@ -1,0 +1,29 @@
+function main() -> int {
+entry:
+  retval:int = $copy 0
+  call:int = $call input()
+  y:int = $copy call:int
+  i:int = $copy y:int
+  cmp:int = $cmp lt i:int 0
+  $branch cmp:int if.then if.end
+
+if.end:
+  i1:int = $copy y:int
+  cmp1:int = $cmp gt i1:int 0
+  $branch cmp1:int if.then2 if.end3
+
+if.end3:
+  i2:int = $copy x:int
+  _dummy9:int = $call output(i2:int)
+  i3:int = $copy retval:int
+  $ret i3:int
+
+if.then:
+  x:int = $copy 0
+  $jump if.end
+
+if.then2:
+  x:int = $copy 1
+  $jump if.end3
+}
+

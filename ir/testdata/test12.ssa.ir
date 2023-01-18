@@ -1,0 +1,30 @@
+function main() -> int {
+entry:
+  call:int = $call input()
+  tobool:int = $cmp neq call:int 0
+  $branch tobool:int if.end if.then
+
+if.end:
+  x.0:int = $phi(call:int, inc:int)
+  tobool1:int = $cmp neq x.0:int 0
+  $branch tobool1:int if.then4 lor.lhs.false
+
+if.end6:
+  x.1:int = $phi(inc5:int, x.0:int)
+  _dummy9:int = $call output(x.1:int)
+  $ret 0
+
+if.then:
+  inc:int = $arith add call:int 1
+  $jump if.end
+
+if.then4:
+  inc5:int = $arith add x.0:int 1
+  $jump if.end6
+
+lor.lhs.false:
+  call2:int = $call input()
+  tobool3:int = $cmp neq call2:int 0
+  $branch tobool3:int if.then4 if.end6
+}
+

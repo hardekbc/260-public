@@ -1,0 +1,17 @@
+struct foo {
+  one: int
+  two: int
+}
+
+function main() -> int {
+entry:
+  call:foo* = $call input()
+  one:int* = $gep call:foo* 0 one
+  i:int = $load one:int*
+  two:int* = $gep call:foo* 0 two
+  i1:int = $load two:int*
+  add:int = $arith add i:int i1:int
+  _dummy6:int = $call output(add:int)
+  $ret 0
+}
+

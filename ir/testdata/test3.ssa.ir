@@ -1,0 +1,13 @@
+function foo(p:int) -> int {
+entry:
+  _dummy1:int = $call output(p:int)
+  $ret 0
+}
+
+function main() -> int {
+entry:
+  call:int = $call input()
+  _dummy3:int = $call foo(call:int)
+  $ret 0
+}
+

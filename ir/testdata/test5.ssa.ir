@@ -1,0 +1,28 @@
+struct bar {
+  a: foo
+  b: foo
+}
+
+struct foo {
+  x: int
+  y: int
+}
+
+function main() -> int {
+entry:
+  s:bar* = $alloc
+  a:foo* = $gep s:bar* 0 a
+  x:int* = $gep a:foo* 0 x
+  $store x:int* 0
+  a1:foo* = $gep s:bar* 0 a
+  y:int* = $gep a1:foo* 0 y
+  $store y:int* 1
+  b:foo* = $gep s:bar* 0 b
+  x2:int* = $gep b:foo* 0 x
+  $store x2:int* 2
+  b3:foo* = $gep s:bar* 0 b
+  y4:int* = $gep b3:foo* 0 y
+  $store y4:int* 3
+  $ret 0
+}
+

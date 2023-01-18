@@ -1,0 +1,72 @@
+struct bar {
+  x: foo
+  y: foo*
+}
+
+struct foo {
+  a: int*
+  b: int*
+}
+
+function main() -> int {
+entry:
+  call:bar* = $alloc
+  call1:bar* = $alloc
+  call2:bar* = $alloc
+  call3:int* = $alloc
+  x:foo* = $gep call:bar* 0 x
+  a:int** = $gep x:foo* 0 a
+  $store a:int** call3:int*
+  call4:int* = $alloc
+  x5:foo* = $gep call:bar* 0 x
+  b:int** = $gep x5:foo* 0 b
+  $store b:int** call4:int*
+  call6:foo* = $alloc
+  y:foo** = $gep call:bar* 0 y
+  $store y:foo** call6:foo*
+  x7:foo* = $gep call:bar* 0 x
+  a8:int** = $gep x7:foo* 0 a
+  i:int* = $load a8:int**
+  x9:foo* = $gep call2:bar* 0 x
+  a10:int** = $gep x9:foo* 0 a
+  $store a10:int** i:int*
+  x11:foo* = $gep call:bar* 0 x
+  b12:int** = $gep x11:foo* 0 b
+  i1:int* = $load b12:int**
+  x13:foo* = $gep call2:bar* 0 x
+  b14:int** = $gep x13:foo* 0 b
+  $store b14:int** i1:int*
+  y15:foo** = $gep call:bar* 0 y
+  i2:foo* = $load y15:foo**
+  y16:foo** = $gep call2:bar* 0 y
+  $store y16:foo** i2:foo*
+  call17:int* = $alloc
+  x18:foo* = $gep call1:bar* 0 x
+  a19:int** = $gep x18:foo* 0 a
+  $store a19:int** call17:int*
+  call20:int* = $alloc
+  x21:foo* = $gep call1:bar* 0 x
+  b22:int** = $gep x21:foo* 0 b
+  $store b22:int** call20:int*
+  call23:foo* = $alloc
+  y24:foo** = $gep call1:bar* 0 y
+  $store y24:foo** call23:foo*
+  x25:foo* = $gep call1:bar* 0 x
+  a26:int** = $gep x25:foo* 0 a
+  i3:int* = $load a26:int**
+  x27:foo* = $gep call:bar* 0 x
+  a28:int** = $gep x27:foo* 0 a
+  $store a28:int** i3:int*
+  x29:foo* = $gep call1:bar* 0 x
+  b30:int** = $gep x29:foo* 0 b
+  i4:int* = $load b30:int**
+  x31:foo* = $gep call:bar* 0 x
+  b32:int** = $gep x31:foo* 0 b
+  $store b32:int** i4:int*
+  y33:foo** = $gep call1:bar* 0 y
+  i5:foo* = $load y33:foo**
+  y34:foo** = $gep call:bar* 0 y
+  $store y34:foo** i5:foo*
+  $ret 0
+}
+

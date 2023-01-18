@@ -1,0 +1,20 @@
+function main() -> int {
+entry:
+  call:int = $call input()
+  tobool:int = $cmp neq call:int 0
+  $branch tobool:int land.lhs.true if.end
+
+if.end:
+  x.0:int = $phi(1, 0, 0)
+  _dummy5:int = $call output(x.0:int)
+  $ret 0
+
+if.then:
+  $jump if.end
+
+land.lhs.true:
+  call1:int = $call input()
+  tobool2:int = $cmp neq call1:int 0
+  $branch tobool2:int if.then if.end
+}
+

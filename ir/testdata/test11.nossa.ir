@@ -1,0 +1,33 @@
+function main() -> int {
+entry:
+  retval:int = $copy 0
+  x:int = $copy 0
+  $jump while.cond
+
+land.end:
+  i2:int = $phi(0, cmp1:int)
+  $branch i2:int while.body while.end
+
+land.rhs:
+  i1:int = $copy x:int
+  cmp1:int = $cmp lt i1:int 10
+  $jump land.end
+
+while.body:
+  i3:int = $copy x:int
+  inc:int = $arith add i3:int 1
+  x:int = $copy inc:int
+  $jump while.cond
+
+while.cond:
+  i:int = $copy x:int
+  cmp:int = $cmp gt i:int 0
+  $branch cmp:int land.rhs land.end
+
+while.end:
+  i4:int = $copy x:int
+  _dummy10:int = $call output(i4:int)
+  i5:int = $copy retval:int
+  $ret i5:int
+}
+

@@ -1,0 +1,93 @@
+struct bar {
+  x: foo
+  y: foo*
+}
+
+struct foo {
+  a: int*
+  b: int*
+}
+
+function main() -> int {
+entry:
+  call:bar* = $alloc
+  p:bar* = $copy call:bar*
+  call1:bar* = $alloc
+  q:bar* = $copy call1:bar*
+  call2:bar* = $alloc
+  r:bar* = $copy call2:bar*
+  call3:int* = $alloc
+  i:bar* = $copy p:bar*
+  x:foo* = $gep i:bar* 0 x
+  a:int** = $gep x:foo* 0 a
+  $store a:int** call3:int*
+  call4:int* = $alloc
+  i1:bar* = $copy p:bar*
+  x5:foo* = $gep i1:bar* 0 x
+  b:int** = $gep x5:foo* 0 b
+  $store b:int** call4:int*
+  call6:foo* = $alloc
+  i2:bar* = $copy p:bar*
+  y:foo** = $gep i2:bar* 0 y
+  $store y:foo** call6:foo*
+  i3:bar* = $copy p:bar*
+  x7:foo* = $gep i3:bar* 0 x
+  a8:int** = $gep x7:foo* 0 a
+  i4:int* = $load a8:int**
+  i5:bar* = $copy r:bar*
+  x9:foo* = $gep i5:bar* 0 x
+  a10:int** = $gep x9:foo* 0 a
+  $store a10:int** i4:int*
+  i6:bar* = $copy p:bar*
+  x11:foo* = $gep i6:bar* 0 x
+  b12:int** = $gep x11:foo* 0 b
+  i7:int* = $load b12:int**
+  i8:bar* = $copy r:bar*
+  x13:foo* = $gep i8:bar* 0 x
+  b14:int** = $gep x13:foo* 0 b
+  $store b14:int** i7:int*
+  i9:bar* = $copy p:bar*
+  y15:foo** = $gep i9:bar* 0 y
+  i10:foo* = $load y15:foo**
+  i11:bar* = $copy r:bar*
+  y16:foo** = $gep i11:bar* 0 y
+  $store y16:foo** i10:foo*
+  call17:int* = $alloc
+  i12:bar* = $copy q:bar*
+  x18:foo* = $gep i12:bar* 0 x
+  a19:int** = $gep x18:foo* 0 a
+  $store a19:int** call17:int*
+  call20:int* = $alloc
+  i13:bar* = $copy q:bar*
+  x21:foo* = $gep i13:bar* 0 x
+  b22:int** = $gep x21:foo* 0 b
+  $store b22:int** call20:int*
+  call23:foo* = $alloc
+  i14:bar* = $copy q:bar*
+  y24:foo** = $gep i14:bar* 0 y
+  $store y24:foo** call23:foo*
+  i15:bar* = $copy q:bar*
+  x25:foo* = $gep i15:bar* 0 x
+  a26:int** = $gep x25:foo* 0 a
+  i16:int* = $load a26:int**
+  i17:bar* = $copy p:bar*
+  x27:foo* = $gep i17:bar* 0 x
+  a28:int** = $gep x27:foo* 0 a
+  $store a28:int** i16:int*
+  i18:bar* = $copy q:bar*
+  x29:foo* = $gep i18:bar* 0 x
+  b30:int** = $gep x29:foo* 0 b
+  i19:int* = $load b30:int**
+  i20:bar* = $copy p:bar*
+  x31:foo* = $gep i20:bar* 0 x
+  b32:int** = $gep x31:foo* 0 b
+  $store b32:int** i19:int*
+  i21:bar* = $copy q:bar*
+  y33:foo** = $gep i21:bar* 0 y
+  i22:foo* = $load y33:foo**
+  i23:bar* = $copy p:bar*
+  y34:foo** = $gep i23:bar* 0 y
+  $store y34:foo** i22:foo*
+  $ret 0
+}
+

@@ -1,0 +1,9 @@
+function main() -> int {
+entry:
+  call:int = $call input()
+  add:int = $arith add call:int call:int
+  add1:int = $arith add add:int call:int
+  _dummy3:int = $call output(add1:int)
+  $ret 0
+}
+

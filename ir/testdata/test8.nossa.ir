@@ -1,0 +1,31 @@
+struct foo {
+  bar: int
+  next: foo*
+}
+
+function main() -> int {
+entry:
+  x.ptr:foo* = $addrof x:foo
+  call:int = $call input()
+  bar:int* = $gep x.ptr:foo* 0 bar
+  $store bar:int* call:int
+  call1:foo* = $alloc
+  next:foo** = $gep x.ptr:foo* 0 next
+  $store next:foo** call1:foo*
+  call2:int = $call input()
+  next3:foo** = $gep x.ptr:foo* 0 next
+  i:foo* = $load next3:foo**
+  bar4:int* = $gep i:foo* 0 bar
+  $store bar4:int* call2:int
+  next5:foo** = $gep x.ptr:foo* 0 next
+  i1:foo* = $load next5:foo**
+  next6:foo** = $gep i1:foo* 0 next
+  $store next6:foo** @nullptr:foo*
+  next7:foo** = $gep x.ptr:foo* 0 next
+  i2:foo* = $load next7:foo**
+  bar8:int* = $gep i2:foo* 0 bar
+  i3:int = $load bar8:int*
+  _dummy16:int = $call output(i3:int)
+  $ret 0
+}
+

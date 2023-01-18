@@ -1,0 +1,28 @@
+function bar(param:int) -> int {
+entry:
+  param.addr:int = $copy param:int
+  i:int = $copy param.addr:int
+  $ret i:int
+}
+
+function foo(param:int) -> int {
+entry:
+  param.addr:int = $copy param:int
+  i:int = $copy param.addr:int
+  $ret i:int
+}
+
+function main() -> int {
+entry:
+  call:int = $call input()
+  tobool:int = $cmp neq call:int 0
+  i:int = $copy tobool:int
+  cond:int[int]* = $select tobool:int @foo:int[int]* @bar:int[int]*
+  func_ptr:int[int]* = $copy cond:int[int]*
+  i1:int[int]* = $copy func_ptr:int[int]*
+  call1:int = $call input()
+  call2:int = $icall i1:int[int]*(call1:int)
+  _dummy14:int = $call output(call2:int)
+  $ret 0
+}
+

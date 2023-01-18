@@ -1,0 +1,17 @@
+function main() -> int {
+entry:
+  call:int = $call input()
+  x:int = $copy call:int
+  i:int = $copy x:int
+  y:int = $copy i:int
+  i1:int = $copy x:int
+  z:int = $copy i1:int
+  i2:int = $copy x:int
+  i3:int = $copy y:int
+  add:int = $arith add i2:int i3:int
+  i4:int = $copy z:int
+  add1:int = $arith add add:int i4:int
+  _dummy11:int = $call output(add1:int)
+  $ret 0
+}
+

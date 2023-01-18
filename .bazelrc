@@ -1,0 +1,3 @@
+build --cxxopt -std=c++17 --cxxopt -D_GNU_SOURCE --cxxopt -D__STDC_CONSTANT_MACROS --cxxopt -D__STDC_FORMAT_MACROS --cxxopt -D__STDC_LIMIT_MACROS --linkopt -fuse-ld=lld --linkopt -L/usr/local/lib --linkopt -lglog --linkopt -lgtest --linkopt -lpthread --client_env=CC=clang --client_env=CXX=clang++
+
+test --test_output=all --compilation_mode=dbg --cxxopt -std=c++17 --cxxopt -D_GNU_SOURCE --cxxopt -D__STDC_CONSTANT_MACROS --cxxopt -D__STDC_FORMAT_MACROS --cxxopt -D__STDC_LIMIT_MACROS --cxxopt -fsanitize=address --cxxopt -fno-omit-frame-pointer --linkopt -fuse-ld=lld --linkopt -L/usr/local/lib --linkopt -lglog --linkopt -fsanitize=address --linkopt -lgtest --linkopt -lpthread --client_env=CC=clang --client_env=CXX=clang++

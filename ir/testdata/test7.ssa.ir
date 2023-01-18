@@ -1,0 +1,22 @@
+function bar(param:int) -> int {
+entry:
+  $ret param:int
+}
+
+function foo(param:int) -> int {
+entry:
+  $ret param:int
+}
+
+function main() -> int {
+entry:
+  call:int = $call input()
+  tobool:int = $cmp neq call:int 0
+  i:int = $copy tobool:int
+  cond:int[int]* = $select tobool:int @foo:int[int]* @bar:int[int]*
+  call1:int = $call input()
+  call2:int = $icall cond:int[int]*(call1:int)
+  _dummy8:int = $call output(call2:int)
+  $ret 0
+}
+

@@ -1,0 +1,23 @@
+function foo(p:int**) -> int {
+entry:
+  p.addr:int** = $copy p:int**
+  i:int** = $copy p.addr:int**
+  i1:int* = $load i:int**
+  i2:int = $load i1:int*
+  $ret i2:int
+}
+
+function main() -> int {
+entry:
+  x.ptr:int* = $addrof x:int
+  y.ptr:int** = $addrof y:int*
+  call:int = $call input()
+  x:int = $copy call:int
+  y:int* = $copy x.ptr:int*
+  z:int** = $copy y.ptr:int**
+  i:int** = $copy z:int**
+  call1:int = $call foo(i:int**)
+  _dummy11:int = $call output(call1:int)
+  $ret 0
+}
+

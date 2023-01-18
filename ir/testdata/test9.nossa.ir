@@ -1,0 +1,78 @@
+struct TreeNode {
+  left: TreeNode*
+  right: TreeNode*
+  value: int
+}
+
+function construct(value:int, left:TreeNode*, right:TreeNode*) -> TreeNode* {
+entry:
+  value.addr:int = $copy value:int
+  left.addr:TreeNode* = $copy left:TreeNode*
+  right.addr:TreeNode* = $copy right:TreeNode*
+  call:TreeNode* = $alloc
+  root:TreeNode* = $copy call:TreeNode*
+  i:int = $copy value.addr:int
+  i1:TreeNode* = $copy root:TreeNode*
+  value1:int* = $gep i1:TreeNode* 0 value
+  $store value1:int* i:int
+  i2:TreeNode* = $copy left.addr:TreeNode*
+  i3:TreeNode* = $copy root:TreeNode*
+  left2:TreeNode** = $gep i3:TreeNode* 0 left
+  $store left2:TreeNode** i2:TreeNode*
+  i4:TreeNode* = $copy right.addr:TreeNode*
+  i5:TreeNode* = $copy root:TreeNode*
+  right3:TreeNode** = $gep i5:TreeNode* 0 right
+  $store right3:TreeNode** i4:TreeNode*
+  i6:TreeNode* = $copy root:TreeNode*
+  $ret i6:TreeNode*
+}
+
+function main() -> int {
+entry:
+  call:TreeNode* = $call construct(1, @nullptr:TreeNode*, @nullptr:TreeNode*)
+  left:TreeNode* = $copy call:TreeNode*
+  call1:TreeNode* = $call construct(3, @nullptr:TreeNode*, @nullptr:TreeNode*)
+  right:TreeNode* = $copy call1:TreeNode*
+  i:TreeNode* = $copy left:TreeNode*
+  i1:TreeNode* = $copy right:TreeNode*
+  call2:TreeNode* = $call construct(2, i:TreeNode*, i1:TreeNode*)
+  root:TreeNode* = $copy call2:TreeNode*
+  i2:TreeNode* = $copy root:TreeNode*
+  call3:int = $call sum(i2:TreeNode*)
+  _dummy47:int = $call output(call3:int)
+  $ret 0
+}
+
+function sum(root:TreeNode*) -> int {
+entry:
+  root.addr:TreeNode* = $copy root:TreeNode*
+  i:TreeNode* = $copy root.addr:TreeNode*
+  cmp:int = $cmp eq i:TreeNode* @nullptr:TreeNode*
+  $branch cmp:int if.then if.end
+
+if.end:
+  i1:TreeNode* = $copy root.addr:TreeNode*
+  value:int* = $gep i1:TreeNode* 0 value
+  i2:int = $load value:int*
+  i3:TreeNode* = $copy root.addr:TreeNode*
+  left:TreeNode** = $gep i3:TreeNode* 0 left
+  i4:TreeNode* = $load left:TreeNode**
+  call:int = $call sum(i4:TreeNode*)
+  add:int = $arith add i2:int call:int
+  i5:TreeNode* = $copy root.addr:TreeNode*
+  right:TreeNode** = $gep i5:TreeNode* 0 right
+  i6:TreeNode* = $load right:TreeNode**
+  call1:int = $call sum(i6:TreeNode*)
+  add2:int = $arith add add:int call1:int
+  retval:int = $copy add2:int
+  $jump return
+
+if.then:
+  retval:int = $copy 0
+  $jump return
+
+return:
+  i7:int = $copy retval:int
+  $ret i7:int
+}
+

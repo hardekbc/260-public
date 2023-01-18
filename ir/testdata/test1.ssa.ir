@@ -1,0 +1,30 @@
+function main() -> int {
+entry:
+  call:int = $call input()
+  $jump while.cond
+
+if.end:
+  primality.1:int = $phi(0, primality.0:int)
+  inc:int = $arith add factor.0:int 1
+  $jump while.cond
+
+if.then:
+  $jump if.end
+
+while.body:
+  div:int = $arith div call:int factor.0:int
+  mul:int = $arith mul div:int factor.0:int
+  cmp1:int = $cmp eq mul:int call:int
+  $branch cmp1:int if.then if.end
+
+while.cond:
+  factor.0:int = $phi(2, inc:int)
+  primality.0:int = $phi(1, primality.1:int)
+  cmp:int = $cmp lt factor.0:int call:int
+  $branch cmp:int while.body while.end
+
+while.end:
+  _dummy9:int = $call output(primality.0:int)
+  $ret 0
+}
+

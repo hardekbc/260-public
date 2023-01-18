@@ -1,0 +1,73 @@
+function main() -> int {
+cond.end:
+  cond:int = $phi(i6:int, i8:int)
+  i9:int* = $copy p:int*
+  $store i9:int* cond:int
+  $jump if.end9
+
+cond.false:
+  i7:int* = $copy p:int*
+  i8:int = $load i7:int*
+  $jump cond.end
+
+cond.true:
+  i5:int* = $copy q:int*
+  i6:int = $load i5:int*
+  $jump cond.end
+
+entry:
+  x.ptr:int* = $addrof x:int
+  y.ptr:int* = $addrof y:int
+  retval:int = $copy 0
+  call:int = $call input()
+  x:int = $copy call:int
+  call1:int = $call input()
+  y:int = $copy call1:int
+  p:int* = $copy @nullptr:int*
+  q:int* = $copy @nullptr:int*
+  call2:int = $call input()
+  tobool:int = $cmp neq call2:int 0
+  $branch tobool:int if.then if.else
+
+if.else:
+  p:int* = $copy y.ptr:int*
+  q:int* = $copy x.ptr:int*
+  $jump if.end
+
+if.end:
+  i:int* = $copy p:int*
+  i1:int* = $copy q:int*
+  cmp:int = $cmp lt i:int* i1:int*
+  $branch cmp:int if.then3 if.end4
+
+if.end4:
+  call5:int = $call input()
+  z:int = $copy call5:int
+  i3:int = $copy z:int
+  cmp6:int = $cmp lt i3:int 0
+  $branch cmp6:int if.then7 if.end9
+
+if.end9:
+  i10:int* = $copy p:int*
+  i11:int = $load i10:int*
+  _dummy28:int = $call output(i11:int)
+  i12:int = $copy retval:int
+  $ret i12:int
+
+if.then:
+  p:int* = $copy x.ptr:int*
+  q:int* = $copy y.ptr:int*
+  $jump if.end
+
+if.then3:
+  i2:int* = $copy q:int*
+  $store i2:int* 42
+  $jump if.end4
+
+if.then7:
+  i4:int = $copy z:int
+  sub:int = $arith sub i4:int 10
+  tobool8:int = $cmp neq sub:int 0
+  $branch tobool8:int cond.true cond.false
+}
+

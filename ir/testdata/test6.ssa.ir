@@ -1,0 +1,19 @@
+function foo(p:int**) -> int {
+entry:
+  i:int* = $load p:int**
+  i1:int = $load i:int*
+  $ret i1:int
+}
+
+function main() -> int {
+entry:
+  x:int* = $alloc
+  y:int** = $alloc
+  call:int = $call input()
+  $store x:int* call:int
+  $store y:int** x:int*
+  call1:int = $call foo(y:int**)
+  _dummy7:int = $call output(call1:int)
+  $ret 0
+}
+

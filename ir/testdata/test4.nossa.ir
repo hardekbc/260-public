@@ -1,0 +1,33 @@
+function factorial(n:int) -> int {
+entry:
+  n.addr:int = $copy n:int
+  i:int = $copy n.addr:int
+  cmp:int = $cmp lte i:int 1
+  $branch cmp:int if.then if.end
+
+if.end:
+  i1:int = $copy n.addr:int
+  i2:int = $copy n.addr:int
+  sub:int = $arith sub i2:int 1
+  call:int = $call factorial(sub:int)
+  mul:int = $arith mul i1:int call:int
+  retval:int = $copy mul:int
+  $jump return
+
+if.then:
+  retval:int = $copy 1
+  $jump return
+
+return:
+  i3:int = $copy retval:int
+  $ret i3:int
+}
+
+function main() -> int {
+entry:
+  call:int = $call input()
+  call1:int = $call factorial(call:int)
+  _dummy13:int = $call output(call1:int)
+  $ret 0
+}
+

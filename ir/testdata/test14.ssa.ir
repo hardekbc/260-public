@@ -1,0 +1,57 @@
+function main() -> int {
+cond.end:
+  cond:int = $phi(i:int, i1:int)
+  $store p.0:int* cond:int
+  $jump if.end9
+
+cond.false:
+  i1:int = $load p.0:int*
+  $jump cond.end
+
+cond.true:
+  i:int = $load q.0:int*
+  $jump cond.end
+
+entry:
+  x:int* = $alloc
+  y:int* = $alloc
+  call:int = $call input()
+  $store x:int* call:int
+  call1:int = $call input()
+  $store y:int* call1:int
+  call2:int = $call input()
+  tobool:int = $cmp neq call2:int 0
+  $branch tobool:int if.then if.else
+
+if.else:
+  $jump if.end
+
+if.end:
+  p.0:int* = $phi(x:int*, y:int*)
+  q.0:int* = $phi(y:int*, x:int*)
+  cmp:int = $cmp lt p.0:int* q.0:int*
+  $branch cmp:int if.then3 if.end4
+
+if.end4:
+  call5:int = $call input()
+  cmp6:int = $cmp lt call5:int 0
+  $branch cmp6:int if.then7 if.end9
+
+if.end9:
+  i2:int = $load p.0:int*
+  _dummy17:int = $call output(i2:int)
+  $ret 0
+
+if.then:
+  $jump if.end
+
+if.then3:
+  $store q.0:int* 42
+  $jump if.end4
+
+if.then7:
+  sub:int = $arith sub call5:int 10
+  tobool8:int = $cmp neq sub:int 0
+  $branch tobool8:int cond.true cond.false
+}
+

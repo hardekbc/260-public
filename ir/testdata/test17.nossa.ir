@@ -1,0 +1,82 @@
+struct foo {
+  bar: int
+  next: foo*
+}
+
+function main() -> int {
+entry:
+  retval:int = $copy 0
+  call:foo* = $alloc
+  foos:foo* = $copy call:foo*
+  i:int = $copy 0
+  $jump for.cond
+
+for.body:
+  call2:int = $call input()
+  i2:foo* = $copy foos:foo*
+  i3:int = $copy i:int
+  idxprom:int = $copy i3:int
+  arrayidx:foo* = $gep i2:foo* idxprom:int
+  bar:int* = $gep arrayidx:foo* 0 bar
+  $store bar:int* call2:int
+  i4:foo* = $copy foos:foo*
+  i5:int = $copy i:int
+  idxprom3:int = $copy i5:int
+  arrayidx4:foo* = $gep i4:foo* idxprom3:int
+  next:foo** = $gep arrayidx4:foo* 0 next
+  $store next:foo** @nullptr:foo*
+  $jump for.inc
+
+for.body11:
+  call12:int = $call input()
+  i10:int* = $copy ints:int*
+  i11:int = $copy j:int
+  idxprom13:int = $copy i11:int
+  arrayidx14:int* = $gep i10:int* idxprom13:int
+  $store arrayidx14:int* call12:int
+  $jump for.inc15
+
+for.cond:
+  i1:int = $copy i:int
+  call1:int = $call input()
+  cmp:int = $cmp lt i1:int call1:int
+  $branch cmp:int for.body for.end
+
+for.cond8:
+  i9:int = $copy j:int
+  call9:int = $call input()
+  cmp10:int = $cmp lt i9:int call9:int
+  $branch cmp10:int for.body11 for.end17
+
+for.end:
+  i7:foo* = $copy foos:foo*
+  arrayidx5:foo* = $gep i7:foo* 13
+  bar6:int* = $gep arrayidx5:foo* 0 bar
+  i8:int = $load bar6:int*
+  _dummy26:int = $call output(i8:int)
+  call7:int* = $alloc
+  ints:int* = $copy call7:int*
+  j:int = $copy 0
+  $jump for.cond8
+
+for.end17:
+  i13:int* = $copy ints:int*
+  arrayidx18:int* = $gep i13:int* 17
+  i14:int = $load arrayidx18:int*
+  _dummy41:int = $call output(i14:int)
+  i15:int = $copy retval:int
+  $ret i15:int
+
+for.inc:
+  i6:int = $copy i:int
+  inc:int = $arith add i6:int 1
+  i:int = $copy inc:int
+  $jump for.cond
+
+for.inc15:
+  i12:int = $copy j:int
+  inc16:int = $arith add i12:int 1
+  j:int = $copy inc16:int
+  $jump for.cond8
+}
+

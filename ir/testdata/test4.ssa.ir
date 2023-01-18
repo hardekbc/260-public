@@ -1,0 +1,27 @@
+function factorial(n:int) -> int {
+entry:
+  cmp:int = $cmp lte n:int 1
+  $branch cmp:int if.then if.end
+
+if.end:
+  sub:int = $arith sub n:int 1
+  call:int = $call factorial(sub:int)
+  mul:int = $arith mul n:int call:int
+  $jump return
+
+if.then:
+  $jump return
+
+return:
+  retval.0:int = $phi(1, mul:int)
+  $ret retval.0:int
+}
+
+function main() -> int {
+entry:
+  call:int = $call input()
+  call1:int = $call factorial(call:int)
+  _dummy8:int = $call output(call1:int)
+  $ret 0
+}
+

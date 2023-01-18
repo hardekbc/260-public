@@ -1,0 +1,54 @@
+struct TreeNode {
+  left: TreeNode*
+  right: TreeNode*
+  value: int
+}
+
+function construct(value:int, left:TreeNode*, right:TreeNode*) -> TreeNode* {
+entry:
+  call:TreeNode* = $alloc
+  value1:int* = $gep call:TreeNode* 0 value
+  $store value1:int* value:int
+  left2:TreeNode** = $gep call:TreeNode* 0 left
+  $store left2:TreeNode** left:TreeNode*
+  right3:TreeNode** = $gep call:TreeNode* 0 right
+  $store right3:TreeNode** right:TreeNode*
+  $ret call:TreeNode*
+}
+
+function main() -> int {
+entry:
+  call:TreeNode* = $call construct(1, @nullptr:TreeNode*, @nullptr:TreeNode*)
+  call1:TreeNode* = $call construct(3, @nullptr:TreeNode*, @nullptr:TreeNode*)
+  call2:TreeNode* = $call construct(2, call:TreeNode*, call1:TreeNode*)
+  call3:int = $call sum(call2:TreeNode*)
+  _dummy24:int = $call output(call3:int)
+  $ret 0
+}
+
+function sum(root:TreeNode*) -> int {
+entry:
+  cmp:int = $cmp eq root:TreeNode* @nullptr:TreeNode*
+  $branch cmp:int if.then if.end
+
+if.end:
+  value:int* = $gep root:TreeNode* 0 value
+  i:int = $load value:int*
+  left:TreeNode** = $gep root:TreeNode* 0 left
+  i1:TreeNode* = $load left:TreeNode**
+  call:int = $call sum(i1:TreeNode*)
+  add:int = $arith add i:int call:int
+  right:TreeNode** = $gep root:TreeNode* 0 right
+  i2:TreeNode* = $load right:TreeNode**
+  call1:int = $call sum(i2:TreeNode*)
+  add2:int = $arith add add:int call1:int
+  $jump return
+
+if.then:
+  $jump return
+
+return:
+  retval.0:int = $phi(0, add2:int)
+  $ret retval.0:int
+}
+

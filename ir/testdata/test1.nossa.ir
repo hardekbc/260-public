@@ -1,0 +1,42 @@
+function main() -> int {
+entry:
+  retval:int = $copy 0
+  call:int = $call input()
+  n:int = $copy call:int
+  factor:int = $copy 2
+  primality:int = $copy 1
+  $jump while.cond
+
+if.end:
+  i6:int = $copy factor:int
+  inc:int = $arith add i6:int 1
+  factor:int = $copy inc:int
+  $jump while.cond
+
+if.then:
+  primality:int = $copy 0
+  $jump if.end
+
+while.body:
+  i2:int = $copy n:int
+  i3:int = $copy factor:int
+  div:int = $arith div i2:int i3:int
+  i4:int = $copy factor:int
+  mul:int = $arith mul div:int i4:int
+  i5:int = $copy n:int
+  cmp1:int = $cmp eq mul:int i5:int
+  $branch cmp1:int if.then if.end
+
+while.cond:
+  i:int = $copy factor:int
+  i1:int = $copy n:int
+  cmp:int = $cmp lt i:int i1:int
+  $branch cmp:int while.body while.end
+
+while.end:
+  i7:int = $copy primality:int
+  _dummy18:int = $call output(i7:int)
+  i8:int = $copy retval:int
+  $ret i8:int
+}
+
