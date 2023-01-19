@@ -47,6 +47,7 @@ class IrVisitor {
   virtual void VisitBasicBlock(const BasicBlock& basic_block) {}
   virtual void VisitBasicBlockPost(const BasicBlock& basic_block) {}
   virtual void VisitInst(const Instruction& inst) {}
+  virtual void VisitInstPost(const Instruction& inst) {}
   virtual void VisitInst(const ArithInst& inst) {}
   virtual void VisitInst(const CmpInst& inst) {}
   virtual void VisitInst(const PhiInst& inst) {}

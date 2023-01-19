@@ -314,6 +314,8 @@ int Instruction::GetIndex() const {
 }
 
 void Instruction::Visit(IrVisitor* visitor) const {
+  visitor->VisitInst(*this);
+
   switch (GetOpcode()) {
     case kArith:
       visitor->VisitInst(AsArith());
@@ -379,7 +381,7 @@ void Instruction::Visit(IrVisitor* visitor) const {
       LOG(FATAL) << "Unknown opcode";
   }
 
-  visitor->VisitInst(*this);
+  visitor->VisitInstPost(*this);
 }
 
 string Instruction::ToString() const {

@@ -168,7 +168,7 @@ TEST_F(IrTest, VisitorTest) {
     void VisitBasicBlockPost(const BasicBlock& basic_block) override {
       order_.push_back(7);
     }
-    void VisitInst(const Instruction& inst) override { order_.push_back(9); }
+    void VisitInstPost(const Instruction& inst) override { order_.push_back(9); }
     void VisitInst(const RetInst& inst) override { order_.push_back(8); }
 
    private:
