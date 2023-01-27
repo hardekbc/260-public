@@ -214,7 +214,7 @@ class Tokenizer {
     // prefix of delimiter B, then B is processed before A is processed.
     vector<string> delimiters(delimiters_.begin(), delimiters_.end());
     std::sort(delimiters.begin(), delimiters.end(),
-              [](string& s1, string& s2) { return s1.size() >= s2.size(); });
+              [](string& s1, string& s2) { return s1.size() > s2.size(); });
 
     // Find minimum position of any delimiter.
     const auto find_min = [&](const string& str) {
