@@ -1,3 +1,5 @@
+# [for Winter 2023; now out of date]
+
 # CS 260 Program Analysis
 
 This repo contains the public infrastructure for CS 260 assignments for implementing program analyses. The infrastructure assumes that the following packages are installed and available on your system:
